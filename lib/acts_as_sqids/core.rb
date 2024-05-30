@@ -60,6 +60,10 @@ module ActsAsSqids
       def has_many(*args, &block) # rubocop:disable Naming/PredicateName
         options = args.extract_options!
         options[:extend] = (options[:extend] || []).concat([FinderMethods])
+
+        clazz = options.fetch(:class_name).constantize
+        clazz.acts_as_sqids if !clazz.include?(ActsAsSqids::Core) && clazz.respond_to?(:acts_as_sqids)
+
         super(*args, **options, &block)
       end
 
