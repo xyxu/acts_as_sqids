@@ -61,7 +61,7 @@ module ActsAsSqids
         options = args.extract_options!
         options[:extend] = (options[:extend] || []).concat([FinderMethods])
 
-        clazz = options.fetch(:class_name).constantize
+        clazz = options.fetch(:class_name, *args).to_s.singularize.camelize.constantize
         clazz.acts_as_sqids if !clazz.include?(ActsAsSqids::Core) && clazz.respond_to?(:acts_as_sqids)
 
         super(*args, **options, &block)
