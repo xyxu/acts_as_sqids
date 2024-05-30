@@ -1,12 +1,12 @@
 require_relative 'core'
 
-module ActsAsHashids
+module ActsAsSqids
   module Methods
     extend ActiveSupport::Concern
 
     module ClassMethods
-      def acts_as_hashids(options = {})
-        include ActsAsHashids::Core unless ancestors.include?(ActsAsHashids::Core)
+      def acts_as_sqids(options = {})
+        include ActsAsSqids::Core unless ancestors.include?(ActsAsSqids::Core)
 
         define_singleton_method :hashids_secret do
           secret = options[:secret]
@@ -15,8 +15,8 @@ module ActsAsHashids
 
         define_singleton_method :hashids do
           length = options[:length] || 8
-          alphabet = options[:alphabet] || Hashids::DEFAULT_ALPHABET
-          Hashids.new(hashids_secret, length, alphabet)
+          alphabet = options[:alphabet] || Sqids::DEFAULT_ALPHABET
+          Sqids.new(hashids_secret, length, alphabet)
         end
       end
     end

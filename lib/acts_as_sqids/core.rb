@@ -1,12 +1,12 @@
-require 'hashids'
+require 'sqids'
 
-module ActsAsHashids
+module ActsAsSqids
   module Core
     extend ActiveSupport::Concern
 
     def to_param
       id = public_send(self.class.primary_key)
-      id && self.class.hashids.encode(id)
+      id && self.class.sqids.encode(id)
     end
 
     module FinderMethods
@@ -15,14 +15,14 @@ module ActsAsHashids
 
         encoded_ids = Array(ids).map do |id|
           id = id.to_i if Integer(id)
-          hashids.encode(id)
+          sqids.encode(id)
         rescue TypeError, ArgumentError
           id
         end
 
         encoded_ids = encoded_ids.flatten
 
-        res = with_hashids(encoded_ids).all
+        res = with_sqids(encoded_ids).all
         if ids.is_a?(Array)
           raise_record_not_found_exception! encoded_ids, res.size, encoded_ids.size if res.size != encoded_ids.size
         else
@@ -49,10 +49,10 @@ module ActsAsHashids
     module ClassMethods
       include FinderMethods
 
-      def with_hashids(*ids)
+      def with_sqids(*ids)
         ids = ids.flatten
-        decoded_ids = ids.map { |id| hashids.decode(id) }.flatten
-        raise ActsAsHashids::Exception, "Decode error: #{ids.inspect}" if ids.size != decoded_ids.size
+        decoded_ids = ids.map { |id| sqids.decode(id) }.flatten
+        raise ActsAsSqids::Exception, "Decode error: #{ids.inspect}" if ids.size != decoded_ids.size
 
         where(primary_key => decoded_ids)
       end

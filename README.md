@@ -1,4 +1,4 @@
-# acts_as_hashids
+# acts_as_sqids
 
 [![Gem Version][gem-image]][gem-link]
 [![Download][download-image]][download-link]
@@ -6,14 +6,14 @@
 [![Coverage Status][cov-image]][cov-link]
 [![Code Climate][gpa-image]][gpa-link]
 
-Use [Hashids](https://github.com/peterhellberg/hashids.rb) (a.k.a. Youtube-Like ID) in ActiveRecord seamlessly.
+Use [Sqids](https://github.com/sqids/sqids-ruby) (a.k.a. Youtube-Like ID) in ActiveRecord seamlessly.
 
 ## Installation
 
-Add the acts_as_hashids gem to your Gemfile.
+Add the acts_as_sqids gem to your Gemfile.
 
 ```ruby
-gem "acts_as_hashids"
+gem "acts_as_sqids"
 ```
 
 And run `bundle install`.
@@ -24,7 +24,7 @@ Activate the function in any model of `ActiveRecord::Base`.
 
 ```ruby
 class Foo < ActiveRecord::Base
-  acts_as_hashids
+  acts_as_sqids
 end
 
 foo = Foo.create
@@ -39,13 +39,13 @@ Foo.find(3)
 Foo.find("ePQgabdg")
 # => #<Foo:0x007feb5978a7c0 id: 3>
 
-Foo.with_hashids("ePQgabdg").first
+Foo.with_sqids("ePQgabdg").first
 # => #<Foo:0x007feb5978a7c0 id: 3>
 ```
 
 ### Use in Rails
 
-Only one thing you need to hash ids is put `acts_as_hashids` in `ApplicationRecord`, then you will see hash ids in routes URL and they are handled correctly as long as you use `find` to find records.
+Only one thing you need to hash ids is put `acts_as_sqids` in `ApplicationRecord`, then you will see hash ids in routes URL and they are handled correctly as long as you use `find` to find records.
 
 ## Options
 
@@ -55,7 +55,7 @@ You can customize the length of hash ids per model. The default length is 8.
 
 ```ruby
 class Foo < ActiveRecord::Base
-  acts_as_hashids length: 2
+  acts_as_sqids length: 2
 end
 
 Foo.create.to_param
@@ -68,11 +68,11 @@ You can customize the secret of hash ids per model. The default secret is the cl
 
 ```ruby
 class Foo1 < ActiveRecord::Base
-  acts_as_hashids secret: 'my secret'
+  acts_as_sqids secret: 'my secret'
 end
 
 class Foo2 < ActiveRecord::Base
-  acts_as_hashids secret: 'my secret'
+  acts_as_sqids secret: 'my secret'
 end
 
 Foo1.create.to_param
@@ -84,11 +84,11 @@ Foo2.create.to_param
 
 ### alphabet
 
-Specify which characters you use to generate hashids.
+Specify which characters you use to generate sqids.
 
 ```rb
 class Foo < ActiveRecord::Base
-  acts_as_hashids alphabet: '0123456789uvwxyz'
+  acts_as_sqids alphabet: '0123456789uvwxyz'
 end
 
 Foo.create(id: 1).to_param
@@ -118,14 +118,14 @@ Copyright (c) 2014 Daisuke Taniwaki. See [LICENSE](LICENSE) for details.
 
 
 
-[gem-image]:   https://badge.fury.io/rb/acts_as_hashids.svg
-[gem-link]:    http://badge.fury.io/rb/acts_as_hashids
-[download-image]:https://img.shields.io/gem/dt/acts_as_hashids.svg
-[download-link]:https://rubygems.org/gems/acts_as_hashids
-[build-image]: https://github.com/dtaniwaki/acts_as_hashids/actions/workflows/test.yml/badge.svg
-[build-link]:  https://github.com/dtaniwaki/acts_as_hashids/actions/workflows/test.yml
-[cov-image]:   https://coveralls.io/repos/dtaniwaki/acts_as_hashids/badge.png
-[cov-link]:    https://coveralls.io/r/dtaniwaki/acts_as_hashids
-[gpa-image]:   https://codeclimate.com/github/dtaniwaki/acts_as_hashids.png
-[gpa-link]:    https://codeclimate.com/github/dtaniwaki/acts_as_hashids
+[gem-image]:   https://badge.fury.io/rb/acts_as_sqids.svg
+[gem-link]:    http://badge.fury.io/rb/acts_as_sqids
+[download-image]:https://img.shields.io/gem/dt/acts_as_sqids.svg
+[download-link]:https://rubygems.org/gems/acts_as_sqids
+[build-image]: https://github.com/xyxu/acts_as_sqids/actions/workflows/test.yml/badge.svg
+[build-link]:  https://github.com/xyxu/acts_as_sqids/actions/workflows/test.yml
+[cov-image]:   https://coveralls.io/repos/xyxu/acts_as_sqids/badge.png
+[cov-link]:    https://coveralls.io/r/xyxu/acts_as_sqids
+[gpa-image]:   https://codeclimate.com/github/xyxu/acts_as_sqids.png
+[gpa-link]:    https://codeclimate.com/github/xyxu/acts_as_sqids
 

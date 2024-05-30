@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-RSpec.describe ActsAsHashids::Core do
+RSpec.describe ActsAsSqids::Core do
   around :context do |block|
     m = ActiveRecord::Migration.new
     m.verbose = false
@@ -19,7 +19,7 @@ RSpec.describe ActsAsHashids::Core do
 
   class Base < ActiveRecord::Base
     self.abstract_class = true
-    acts_as_hashids length: 4
+    acts_as_sqids length: 4
   end
 
   class CoreFoo < Base
@@ -48,7 +48,7 @@ RSpec.describe ActsAsHashids::Core do
         end
       end
       context 'with hash id which looks like a logarithm' do
-        let!(:foo1) { CoreFoo.create(id: CoreFoo.hashids.decode('4E93')[0]) }
+        let!(:foo1) { CoreFoo.create(id: CoreFoo.sqids.decode('4E93')[0]) }
         let!(:foo2) { CoreFoo.create(id: '4') }
 
         it 'decodes hash id which looks like a logarithm and returns the record' do
@@ -112,18 +112,18 @@ RSpec.describe ActsAsHashids::Core do
       end
     end
   end
-  describe '.with_hashids' do
+  describe '.with_sqids' do
     subject(:model) { CoreFoo }
 
     let!(:foo1) { CoreFoo.create }
     let!(:foo2) { CoreFoo.create }
 
     it 'decodes hash id and returns the record' do
-      expect(model.with_hashids([foo1.to_param, foo2.to_param]).all).to eq [foo1, foo2]
+      expect(model.with_sqids([foo1.to_param, foo2.to_param]).all).to eq [foo1, foo2]
     end
     context 'with invalid hash id' do
       it 'raises an exception' do
-        expect { model.with_hashids('@').all }.to raise_error(ActsAsHashids::Exception, 'Decode error: ["@"]')
+        expect { model.with_sqids('@').all }.to raise_error(ActsAsSqids::Exception, 'Decode error: ["@"]')
       end
     end
   end

@@ -1,17 +1,17 @@
 lib = File.expand_path('lib', __dir__)
 $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
-require 'acts_as_hashids/version'
+require 'acts_as_sqids/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = 'acts_as_hashids'
-  spec.version       = ActsAsHashids::VERSION
+  spec.name          = 'acts_as_sqids'
+  spec.version       = ActsAsSqids::VERSION
   spec.platform      = Gem::Platform::RUBY
-  spec.authors       = ['dtaniwaki']
-  spec.email         = ['daisuketaniwaki@gmail.com']
+  spec.authors       = ['xyxu']
+  spec.email         = ['techxu@gmail.com']
 
   spec.summary       = 'Use Youtube-Like ID in ActiveRecord seamlessly.'
   spec.description   = 'Use Youtube-Like ID in ActiveRecord seamlessly.'
-  spec.homepage      = 'https://github.com/dtaniwaki/acts_as_hashids'
+  spec.homepage      = 'https://github.com/xyxu/acts_as_sqids'
   spec.license       = 'MIT'
 
   spec.files         = `git ls-files -z`.split("\x0").reject { |f| f.match(%r{^(test|spec|features)/}) }
@@ -21,8 +21,8 @@ Gem::Specification.new do |spec|
 
   spec.required_ruby_version = ['>= 2.3.0', '< 3.3']
 
-  spec.add_runtime_dependency 'activerecord', '>= 4.0', '< 7.1'
-  spec.add_runtime_dependency 'hashids', '~> 1.0'
+  spec.add_runtime_dependency 'activerecord', '>= 4.0', '< 7.2'
+  spec.add_runtime_dependency 'sqids', '~> 0.2.0'
 
   spec.add_development_dependency 'codeclimate-test-reporter', '~> 0.5'
   spec.add_development_dependency 'rake', '~> 10.0'

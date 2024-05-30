@@ -33,7 +33,7 @@ ActiveRecord::Base.establish_connection(
   database: 'test.db'
 )
 
-require 'acts_as_hashids'
+require 'acts_as_sqids'
 
 RSpec.configure do |config|
   config.expect_with :rspec do |expectations|
