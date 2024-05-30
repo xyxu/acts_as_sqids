@@ -62,24 +62,17 @@ Foo.create.to_param
 # => "Rx"
 ```
 
-### secret
+### blocklist
 
-You can customize the secret of hash ids per model. The default secret is the class name. The name of base class is used for STI.
+You can customize the blocklist of sqids per model.
 
 ```ruby
-class Foo1 < ActiveRecord::Base
-  acts_as_sqids secret: 'my secret'
+class Foo < ActiveRecord::Base
+  acts_as_sqids blocklist: %w[RxQce3a2 1d1ot]
 end
 
-class Foo2 < ActiveRecord::Base
-  acts_as_sqids secret: 'my secret'
-end
-
-Foo1.create.to_param
-# => "RxQce3a2"
-
-Foo2.create.to_param
-# => "RxQce3a2"
+Foo.create.to_param
+# => "RxQce3a3"
 ```
 
 ### alphabet

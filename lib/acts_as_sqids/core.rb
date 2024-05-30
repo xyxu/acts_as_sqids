@@ -6,7 +6,7 @@ module ActsAsSqids
 
     def to_param
       id = public_send(self.class.primary_key)
-      id && self.class.sqids.encode(id)
+      id && self.class.sqids.encode([id])
     end
 
     module FinderMethods
@@ -15,7 +15,7 @@ module ActsAsSqids
 
         encoded_ids = Array(ids).map do |id|
           id = id.to_i if Integer(id)
-          sqids.encode(id)
+          sqids.encode([id])
         rescue TypeError, ArgumentError
           id
         end

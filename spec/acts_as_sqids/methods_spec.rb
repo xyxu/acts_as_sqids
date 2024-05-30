@@ -27,54 +27,24 @@ RSpec.describe ActsAsSqids::Methods do
     Object.const_get name
   end
 
-  describe '.sqids_secret' do
-    subject(:model) { create_model 'MethodsFoo' }
-
-    it 'returns the class name' do
-      expect(model.sqids_secret).to eq 'MethodsFoo'
-    end
-    context 'for STI' do
-      subject(:model) { create_model 'MethodsFoo', base: MethodsBar }
-
-      it 'returns the base class name' do
-        create_model 'MethodsBar'
-        expect(model.sqids_secret).to eq 'MethodsBar'
-      end
-    end
-    context 'with custom secret' do
-      subject(:model) { create_model 'MethodsFoo', secret: '^_^' }
-
-      it 'returns the custom secret' do
-        expect(model.sqids_secret).to eq '^_^'
-      end
-      context 'with executable secret' do
-        subject(:model) { create_model 'MethodsFoo', secret: -> { "#{name} ^_^" } }
-
-        it 'returns the custom secret' do
-          expect(model.sqids_secret).to eq 'MethodsFoo ^_^'
-        end
-      end
-    end
-  end
-
   describe '.sqids' do
     subject(:model) { create_model 'MethodsFoo' }
 
     it 'returns the sqids instance' do
-      expect(model.sqids.encode(1)).to eq sqids.new('MethodsFoo', 8).encode(1)
+      expect(model.sqids.encode([1])).to eq sqids.new('MethodsFoo', 8).encode([1])
     end
     context 'with custom length' do
       subject(:model) { create_model 'MethodsFoo', length: 16 }
 
       it 'returns the sqids instance' do
-        expect(model.sqids.encode(1)).to eq sqids.new('MethodsFoo', 16).encode(1)
+        expect(model.sqids.encode([1])).to eq sqids.new('MethodsFoo', 16).encode([1])
       end
     end
     context 'with custom alphabet' do
       subject(:model) { create_model 'MethodsFoo', alphabet: '1234567890abcdef' }
 
       it 'returns the sqids instance' do
-        expect(model.sqids.encode(1)).to eq sqids.new('MethodsFoo', 8, '1234567890abcdef').encode(1)
+        expect(model.sqids.encode([1])).to eq sqids.new('MethodsFoo', 8, '1234567890abcdef').encode([1])
       end
     end
   end
